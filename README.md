@@ -53,6 +53,15 @@ has no runtime package installation, and preserves a browser-only simulation
 mode. Use the scenario controls, simulated link toggle, JSON import, chart,
 event history, and CSV export for demonstration.
 
+## Public static demo
+
+The hosted browser-only demonstration is available at
+[`https://jaydeep2506747.github.io/HimRakshak/`](https://jaydeep2506747.github.io/HimRakshak/).
+It runs the standalone simulation only. The Python API is not deployed to
+GitHub Pages, so backend reliability operations require the local server
+described below. Deployment details and troubleshooting are in
+[`docs/deployment.md`](docs/deployment.md).
+
 ## Run the local API and dashboard
 
 From the project root:
