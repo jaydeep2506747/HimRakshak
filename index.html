@@ -37,7 +37,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
   <div class="top-actions"><span class="pill"><span class="dot"></span> SOFTWARE SIMULATION</span><span class="pill" id="modePill">LOCAL / NO CLOUD</span></div>
 </header>
 <main class="main">
-  <section class="intro"><div><div class="eyebrow">Field intelligence console / demo 01</div><h2>Monitor the slope. Warn before the road is at risk.</h2><p>Explore simulated soil moisture, tilt and vibration signals. Trigger test scenarios and observe how a local risk engine and a simulated radio receiver respond.</p></div><div class="demo-label">◉ <span id="modeIndicator">Standalone browser mode · no server or internet</span></div></section>
+  <section class="intro"><div><div class="eyebrow">Field intelligence console / demo 01</div><h2>Monitor the slope. Warn before the road is at risk.</h2><p>Explore simulated soil moisture, tilt and vibration signals. Trigger test scenarios and observe how a local risk engine and a simulated radio receiver respond.</p></div><div class="demo-label">◉ <span id="modeIndicator">Standalone browser mode · no API server</span></div></section>
   <div class="notice"><div class="notice-icon">ⓘ</div><div><b>Prototype disclosure — not a real landslide detector</b>All values, radio packets, map zones and response times on this page are simulated. This file can run without internet, but it does not connect to physical sensors or transmit real LoRa signals.</div></div>
   <section class="card station-bar"><div class="card-head"><div><h3>Virtual station roster</h3><p>Exactly three independent stations; select one to inspect its local state.</p></div><span class="tag">3 STATIONS</span></div><div class="body" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><label for="stationSelect" style="font-size:12px;font-weight:800">Active station</label><select id="stationSelect" class="small-btn"><option value="HR-01">HR-01 · Virtual Station 1</option><option value="HR-02">HR-02 · Virtual Station 2</option><option value="HR-03">HR-03 · Virtual Station 3</option></select><span class="micro" id="stationSummary">No events recorded for this station.</span></div></section>
   <section class="kpis">
@@ -280,7 +280,11 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 
   function setBackendIndicator(backend) {
       state.backend = backend;
-      $('modeIndicator').textContent = backend ? 'Connected backend mode · local Python API' : 'Standalone browser mode · no server or internet';
+        $('modeIndicator').textContent = backend
+          ? 'Connected backend mode · local Python API'
+          : window.location.protocol === 'file:'
+            ? 'Standalone browser mode · no API server'
+            : 'Static hosted demo · Python API unavailable';
     }
 
   function applyBackendResult(result, eventName = 'Backend telemetry update') {
